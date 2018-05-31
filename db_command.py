@@ -10,24 +10,6 @@ from sqlalchemy import exc, desc
 import random
 import string
 from db_setup import BASE, Item, Category, User
-# import json
-# PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
-# SECRETS_URL = os.path.join(PROJECT_ROOT, 'secrets.json')
-
-# DB_CONNECTION_STR =  (
-#         json.loads(
-#             open(SECRETS_URL, 'r')
-#             .read())['db_conn_str']
-#     )
-
-#engine = create_engine('sqlite:///catalog.db')
-#engine = create_engine('postgresql+psycopg2://catalog:F0rW3b5!@localhost/catalog')
-# engine = create_engine(DB_CONNECTION_STR)
-
-# BASE.metadata.bind = engine
-
-# DBSession = sessionmaker(bind=engine)
-
 from database import DBSession
 
 ses = DBSession()
