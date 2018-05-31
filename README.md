@@ -14,7 +14,7 @@ This enhancement has changed the application to use PostgreSQL, running on a web
 to reduce the risk of compromise from brute force SSH access. 
 
 The linux machine tested on was started with a base Ubuntu 16.04.  From there we installed:
-- PostreSQL
+- PostgreSQL
 - pip
 - git
 - python 2.7
@@ -30,9 +30,9 @@ Once setup, the requirements for hardening the server included:
 - don't allow root remote login
 - setup a user for 'grader' for the Udacity grader, and allow login with a private key, and grant sudo rights
 - ssh port is change from the default of 22
-- the UFW is configured to only allow ntp, ssh (custom port) and http trafic
+- the UFW is configured to only allow ntp, ssh (custom port) and http traffic
 
-Finally, I had to alter this app to get it working with PostgresSQL, and running on the server.
+Finally, I had to alter this app to get it working with PostgreSQL, and running on the server.
 In my case, I had to update my google API credentials to allow for the OAuth to originate from my new server.
 Since google doesn't allow IPs to be listed, I did have to add a domain name.  I am using dev.beaukinstler.com. 
 As long as that URL is used, the Google OAuth will be available.  
@@ -45,19 +45,19 @@ I used the examples provided by both the home pages of the Apache and Python hom
 
 I also needed to revisit how PostgreSQL handles use rights, and authentication via localhost IPv4, and the 
 rights needed for the user to create tables (at least initially), and connect and query a database call.
-While this was a little tedius, the documentation provided by PostgreSQL's home page, and it's built in 
+While this was a little tedious, the documentation provided by PostgreSQL's home page, and it's built in 
 \help and \? switches got me through it.
 
-One noteable thing I found, was that converting my code to PostgreSQL required changing the column sizes.  I haven't dug too
-deep, but it seems like SQLight just didn't care that my text colmns for storing password hashes was too short.
+One notable thing I found, was that converting my code to PostgreSQL required changing the column sizes.  I haven't dug too
+deep, but it seems like SQLight just didn't care that my text columns for storing password hashes was too short.
 When the tables were created in PostgreSQL, however, I was getting errors that pointed me in that direction.
 
-Of course, I'm sure I ended up up on stackoverflow, and simlilar sites while seeing various errors as I tweeked settings,
-but I don't know that I have all of them. I'll list in the _REFERENCES_ what I do know I used.
+Of course, I'm sure I ended up up on stackoverflow, and similar sites while seeing various errors as I tweaked settings,
+but I don't know that I have all of them. I'll list in the _Resources Used_ what I do know I used.
 
 ### Resources used
 [Original Project](https://github.com/beaukinstler/fswd-item-catalog)
-	- Credit to all the resoures used to create this original project, including intruction and the code reviews from Udacity
+	- Credit to all the resources used to create this original project, including instruction and the code reviews from Udacity
 
 https://stackoverflow.com/questions/13485030/strange-postgresql-value-too-long-for-type-character-varying500
 
