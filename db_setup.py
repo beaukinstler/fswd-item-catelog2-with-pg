@@ -4,8 +4,7 @@ item catalog with categories web application
 """
 from sqlalchemy import Column, ForeignKey, Integer, String, UniqueConstraint
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship, sessionmaker
-from sqlalchemy import create_engine
+from sqlalchemy.orm import relationship
 from passlib.apps import custom_app_context as app_context
 import random
 import string
@@ -14,6 +13,8 @@ from itsdangerous import(
         BadSignature,
         SignatureExpired
     )
+
+from database import ENGINE
 
 BASE = declarative_base()
 
@@ -150,7 +151,5 @@ class Item(BASE):
             'category_id': self.cat_id,
             'owner_username': self.user.username
         }
-
-ENGINE = create_engine('postgresql+psycopg2://catalog:F0rW3b5!@localhost/catalog')
 
 BASE.metadata.create_all(ENGINE)

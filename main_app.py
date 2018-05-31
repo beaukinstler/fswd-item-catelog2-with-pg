@@ -16,11 +16,11 @@ import httplib2
 from flask_httpauth import HTTPBasicAuth
 from flask import make_response
 
-import logging
-logging.basicConfig(filename='example.log',level=logging.DEBUG)
-logging.debug('This message should go to the log file')
-logging.info('So should this')
-logging.warning('And this, too')
+# import logging
+# logging.basicConfig(filename='example.log',level=logging.DEBUG)
+# logging.debug('This message should go to the log file')
+# logging.info('So should this')
+# logging.warning('And this, too')
 
 from database import ENGINE, DBSession, PROJECT_ROOT, SECRETS_URL
 
@@ -48,7 +48,7 @@ GOOG_CLIENT_ID = (
             open(client_secrets_url, 'r')
             .read())['web']['client_id']
     )
-logging.debug( 'client secret url' + str(client_secrets_url))
+# logging.debug( 'client secret url' + str(client_secrets_url))
 auth = HTTPBasicAuth()
 
 
