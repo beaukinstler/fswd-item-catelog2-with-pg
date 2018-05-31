@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% block title %}Delete Item{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block pageheader %}Delete {{item.name}}{% endblock %}
+
+{% block content %}
+{{ super() }}
+<form action="{{url_for('deleteItem', cat_id=item.cat_id, item_id=item.id )}}" method = 'POST'>
+<input name=state type=hidden value="{{STATE}}">
+<p>Are you sure you want to delete:</p>
+
+<p>{{item.name}}</p>
+
+<input type='submit' name='delete' value='Delete'>
+
+
+<a href="{{url_for('itemInfo', item_id=item.id)}}">Cancel</a>
+
+</form>
+{% endblock %}

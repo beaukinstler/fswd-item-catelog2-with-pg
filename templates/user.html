@@ -1,0 +1,22 @@
+{% extends "main.html" %}
+{% block title %}User info{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block pageheader %}Edit account "{{user.username}}" {% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<a href="{{url_for('editUser', id=user.id)}}">Edit</a>
+
+<p>User id: {{user.id}}</p>
+<p>UserName: {{user.username}}</p>
+<p>Email: {{user.email}}</p>
+
+
+
+{% endblock %}

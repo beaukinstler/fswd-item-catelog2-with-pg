@@ -1,0 +1,24 @@
+{% extends "main.html" %}
+{% block title %}Create Category{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block pageheader %}Create a new Category{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+        <form action="{{url_for('newCategory', name=name)}}" method = 'POST'>
+                <input name=state type=hidden value="{{STATE}}">
+                <p>Category Name:</p>
+                
+                <input type='text' size='30' name='name'>
+                
+                <input type='submit' value='Create'>
+                        
+        </form> 
+
+{% endblock %}

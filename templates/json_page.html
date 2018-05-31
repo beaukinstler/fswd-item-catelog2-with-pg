@@ -1,0 +1,29 @@
+{% extends "main.html" %}
+{% block title %}JSON Endpoints{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+{% endblock %}
+
+{% block pageheader %} JSON Endpoints {% endblock %}
+
+{% block content %}
+{{ super() }}
+<br>
+/item/&lt;int:item_id&gt;/json
+<br>
+/categories/json
+<br>
+/fullcatalog/json
+<br>
+/allitems/json
+<br>
+<br>
+<em>Login required</em>
+<br>
+/users/json
+<br>
+/user/&lt;int:user_id&gt;
+<br>
+{% endblock %}

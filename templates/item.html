@@ -1,0 +1,37 @@
+{% extends "main.html" %}
+{% block title %}{{item.name}}{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block pageheader %}{{item.name}}{% endblock %}
+
+{% block content %}
+{{ super() }}
+<div>
+
+        
+        {% if item.description %}
+        <p class="description">{{item.description}}</p>
+        {%endif%}
+        </div>
+        <div>
+        <div class="price">Price: {{item.price}} </div>
+        <div id="category">Catgory: {{item.category.name}}</div>
+        
+        
+        {% if globalUserLoggedIn  %}
+        <div class="editdeletepane">
+        <a href="{{url_for('editItem', cat_id=0, item_id=item.id)}}">Edit</a> | 
+        <a href="{{url_for('deleteItem', cat_id=0, item_id=item.id)}}">Delete</a>
+        <br>
+        {% endif %}
+ 
+        <br>
+        <a href="{{url_for('categoryDash', cat_id=item.cat_id)}}"><-- Back</a>        
+
+ 
+
+{% endblock %}

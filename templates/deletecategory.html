@@ -1,0 +1,26 @@
+{% extends "main.html" %}
+{% block title %}Delete Category{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block pageheader %}Delete category: {{category.name}}{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<form action="{{url_for('deleteCategory', cat_id=category.id)}}" method = 'POST'>
+    <input name=state type=hidden value="{{STATE}}">
+<p>Are you sure you want to delete:</p>
+
+<p>{{category.name}}</p>
+
+<input type='submit' name='delete' value='Delete'>
+<input type='submit' name='delete' value='Cancel'>
+
+
+</form>
+
+{% endblock %}

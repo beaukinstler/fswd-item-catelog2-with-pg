@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+{% block title %}Category List{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block pageheader %}Categories{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+    <div>
+        <h4><a href="{{url_for('newCategory')}}">Create a new category</a></h4>
+    </div>
+        {% for cat in categories %}
+        <div>
+            <h3><a href="{{url_for('category', cat_id=cat.id)}}">{{cat.name}}</a></h3>
+        </div>
+        {% endfor %}
+        
+{% endblock %}
+

@@ -1,0 +1,42 @@
+{% extends "main.html" %}
+{% block title %}Edit Item{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block pageheader %}Edit {{item.name}}{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<form action="{{url_for('editItem', item_id=item.id )}}" method = 'POST'>
+<input name=state type=hidden value="{{STATE}}">
+<p>Name:</p>
+
+<input type='text' size='30' name='name' value="{{item.name}}">
+
+<p>Price:</p>
+
+<input type='text' size='10' name='price' value="{{item.price}}">
+
+<p>Description:</p>
+
+<input type='text' size='10' name='description' value="{{item.description}}">
+
+<p>Category:</p>
+
+
+        {% for cat in categories %}
+        <div class="radio">
+                <label>
+                        <input type="radio" name="cat_id" id=cat-id-{{cat.id}} value={{cat.id}} {% if item.cat_id == cat.id%}checked{%endif%}>{{cat.name}}
+                </label>
+        </div>
+       
+        {%endfor%}
+
+<input type='submit' value='Save'>
+<a href="{{url_for('itemInfo', item_id=item.id)}}">Cancel</a>
+{% endblock %}

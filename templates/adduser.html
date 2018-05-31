@@ -1,0 +1,31 @@
+{% extends "main.html" %}
+{% block title %}Create a new User {% endblock %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block pageheader %}Create a new User {% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<form action="{{url_for('create_user', username=username, password=password, email=email)}}" method = 'POST'>
+<input name=state type=hidden value="{{STATE}}">
+<p>User Name:</p>
+
+<input type='text' size='30' name='username'>
+
+<p>email</p>
+<input type='email' size='30' name='email'>
+
+
+<p>Password</p>
+<input type='text' size='30' name='password'>
+
+<input type='submit' value='Create'>
+
+</form>
+
+{% endblock %}

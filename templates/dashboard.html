@@ -1,0 +1,48 @@
+{% extends "main.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block head %}
+
+{{ super() }}
+{% endblock %}
+
+{% block pageheader %} Dashboard {% endblock %}
+
+{% block content %}
+{{ super() }}
+
+
+<div class="container-fluid">
+
+        <div class="row">
+            <div class="col-sm-4" style="background-color:rgb(241, 234, 207);">
+                <h4>Categories</h4>
+                {% for cat in categories %}
+                <div>
+                    <a href="{{url_for('categoryDash', cat_id=cat.id)}}">{{cat.name}}</a>
+                </div>
+                {% endfor %}
+                {% if globalUserLoggedIn == 1 %}
+                <div>
+                    <br>
+                     <a href="{{url_for('newCategory')}}">Create new category</a>
+                </div>
+                {% endif %}
+            </div>
+            <div class="col-sm-8" style="background-color:rgb(184, 235, 236);">
+                <h4>Recent Items</h4>
+                {% for item in items %}
+                <div>
+                    <a href="{{url_for('itemInfo', item_id=item.id)}}">{{item.name}}</a>
+                </div>
+                {% endfor %}
+                {% if globalUserLoggedIn == 1 %}
+                <div>
+                     <a href="{{url_for('newItem', cat_id=0)}}"><br>Create new item</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+      </div>
+
+{% endblock %}

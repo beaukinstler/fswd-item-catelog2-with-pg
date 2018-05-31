@@ -1,0 +1,45 @@
+{% extends "main.html" %}
+{% block title %}New Item{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block pageheader %}New Item{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<form action="{{url_for('newItem', cat_id=cat_id )}}" method = 'POST'>
+<input name=state type=hidden value="{{STATE}}">
+<p>Name:</p>
+
+<input type='text' size='30' name='name'>
+
+<p>Price:</p>
+
+<input type='text' size='10' name='price' placeholder="$99.99">
+
+<p>Description:</p>
+
+<input type='text' size='10' name='description'>
+
+<p>Category:</p>
+
+
+        {% for cat in categories %}
+        <div class="radio">
+                <label>
+                        <input type="radio" name="cat_id" id="cat-id-{{cat.id}}" value="{{cat.id}}" {% if cat.id == cat_id%}checked{%endif%} >{{cat.name}}
+                </label>
+        </div>
+       
+        {%endfor%}
+
+
+<input type='submit' value='Create'>
+
+
+</form>
+{% endblock %}

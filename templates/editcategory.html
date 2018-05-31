@@ -1,0 +1,26 @@
+{% extends "main.html" %}
+{% block title %}Edit Category{% endblock %}
+
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+
+{% block pageheader %}Edit category: {{category.name}}{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<form action="{{url_for('editCategory', cat_id=category.id)}}" method = 'POST'>
+    <input name=state type=hidden value="{{STATE}}">
+<p>Name:</p>
+
+<input type='text' size='30' name='name' value="{{category.name}}">
+
+<input type='submit' value='Save'>
+
+<a href="{{url_for('categoryDash', cat_id=category.id)}}">Cancel</a>
+
+</form>
+
+{% endblock %}

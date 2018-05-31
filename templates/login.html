@@ -1,0 +1,97 @@
+{% extends "main.html" %}
+{% block title %}Login Page{% endblock %}
+
+{% block head %}
+{{ super() }}
+<!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="//apis.google.com/js/platform.js?onload=start"> </script>
+<!-- END PRE-REQUISITES FOR GOOGLE SIGN IN -->
+{% endblock %}
+
+{% block pageheader %}Login options{% endblock %}
+
+{% block content %}
+{{ super() }}
+    <div id="signinButton">
+        <h3>Sign in or create a user account with Google</h3>
+        <span class="g-signin"
+            data-scope="openid email"
+            data-clientid="{{googOAuthClientId}}"
+            data-redirecturi="postmessage"
+            data-accesstype="offline"
+            data-cookiepolicy="single_host_origin"
+            data-callback="signInCallback"
+            data-approvalprompt="force">
+        </span>
+    </div>
+    <div width="100" height="80" id='result'>
+
+    </div>
+    <script>
+    
+    function signInCallback(authResult) {
+        if (authResult['code']) {
+            // Hide the sign-in button now that the user is authorized
+            $('#signinButton').hide();
+
+            // hide the custom login form and set #result to 'waiting'
+            $('#result').html('Sending login request to Google...!</br></br>Please stand by...')
+            $('#customLoginForm').hide();
+            // Send the one-time-use code to the server, if the server responds, write a 'login successful' message to the web page and then redirect back to the main restaurants page
+            $.ajax({
+                type: 'POST',
+                url: '/gconnect?state={{STATE}}',
+                processData: false,
+                data: authResult['code'],
+                contentType: 'application/octet-stream; charset=utf-8',
+                success: function(result) {
+                    // Handle or verify the server response if necessary.
+                    console.log("Debug: result: " + result)
+                    if (result) {
+                        result_html = 'Login Successful!</br>';
+                        result_html += '<div height="10" width="10">' + result +'</div>';
+                        result_html += '</br></br>Redirecting...'
+                        $('#result').html(result_html)
+                        setTimeout(
+                            function() {
+                                window.location.href = "/";
+                            }
+                            , 4000);
+                    } 
+                    else if (authResult['error']) {
+                        console.log('There was an error: ' + authResult['error']);
+                    }           
+                    else {
+                        $('#result').html('Failed to make a server-side call. Check your configuration and console.');
+                    }       
+                }
+            
+            }); 
+        } 
+    }
+    </script>
+
+<!-- custom login form -->
+<div id="customLoginForm">
+<h3>Login with an account!!!</h3>
+    <form  action="{{url_for('showLogin', username=username, password=password, email=email )}}" method='POST' >
+        <input name=state type=hidden value="{{STATE}}">
+        <p>UserName:</p>
+
+        <input type='text' size='30' name='username' value="">
+
+        <p>Email:</p>
+
+        <input type='email' size='10' name='email' value="">
+
+        <p>Password:</p>
+
+        <input type='password' size='10' name='password' value="12345">
+
+        <input type='submit' value='Login'>
+
+
+    </form>
+</div>
+{% endblock %}
