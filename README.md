@@ -1,4 +1,4 @@
-# Item catalog project
+# Item catalog project 2 - WSIG and postgreSQL
 
 
 ## Running on a live web server
@@ -10,7 +10,7 @@ In this project, we've built upon the earlier project for a catalog app.
 The intial project's intent was not to have an entirely production ready application, but to demonstrate some of the core concepts 
 of authentication, access control, and CRUD operations on a database.
 
-This enhancment has change the application to use PostgreSQL, running on a web server on the internet, secured in order
+This enhancement has changed the application to use PostgreSQL, running on a web server on the internet, secured in order
 to reduce the risk of compromise from brute force SSH access. 
 
 The linux machine tested on was started with a base Ubuntu 16.04.  From there we installed:
@@ -57,18 +57,31 @@ but I don't know that I have all of them. I'll list in the _REFERENCES_ what I d
 
 ### Resources used
 [Original Project](https://github.com/beaukinstler/fswd-item-catalog)
-- Credit to all the resoures used to create this original project, including intruction and the code reviews from Udacity
+	- Credit to all the resoures used to create this original project, including intruction and the code reviews from Udacity
+
 https://stackoverflow.com/questions/13485030/strange-postgresql-value-too-long-for-type-character-varying500
+
 https://httpd.apache.org/docs/2.2/
+
 https://unix.stackexchange.com/questions/76710/changing-timezone-on-debian-keeps-local-time-in-utc
+
 [Troubleshooting SQLAlchemy](http://docs.sqlalchemy.org/en/latest/faq/sessions.html#this-session-s-transaction-has-been-rolled-back-due-to-a-previous-exception-during-flush-or-similar)
+
 https://www.digitalocean.com/community/tutorials/how-to-set-up-apache-virtual-hosts-on-ubuntu-14-04-lts
+
+
 http://flask-httpauth.readthedocs.io/en/latest/
+
 https://modwsgi.readthedocs.io/en/develop/user-guides/quick-configuration-guide.html
+
 http://docs.sqlalchemy.org/en/latest/core/engines.html#database-urls
+
 https://www.postgresql.org/docs/9.0/static/sql-grant.html
+
 https://stackoverflow.com/a/36162748/811479
+
 http://flask.pocoo.org/docs/0.12/deploying/mod_wsgi/
+
 https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-against-automated-attacks
 
 
@@ -103,13 +116,13 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-agains
 		ubuntu@dev:~$ sudo ufw status numbered
 		Status: active
 
-		     To                         Action      From
-		     --                         ------      ----
-		[ 1] sshx/tcp                   ALLOW IN    Anywhere                  
-		[ 2] 80/tcp                     ALLOW IN    Anywhere                  
-		[ 3] 123/udp                    ALLOW IN    Anywhere                  
-		[ 4] sshx/tcp (v6)              ALLOW IN    Anywhere (v6)             
-		[ 5] 80/tcp (v6)                ALLOW IN    Anywhere (v6)             
-		[ 6] 123/udp (v6)               ALLOW IN    Anywhere (v6)
+			To                         Action      From
+			--                         ------      ----
+			[ 1] sshx/tcp                   ALLOW IN    Anywhere                  
+			[ 2] 80/tcp                     ALLOW IN    Anywhere                  
+			[ 3] 123/udp                    ALLOW IN    Anywhere                  
+			[ 4] sshx/tcp (v6)              ALLOW IN    Anywhere (v6)             
+			[ 5] 80/tcp (v6)                ALLOW IN    Anywhere (v6)             
+			[ 6] 123/udp (v6)               ALLOW IN    Anywhere (v6)
 
 
