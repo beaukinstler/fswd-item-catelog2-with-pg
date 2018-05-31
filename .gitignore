@@ -1,0 +1,7 @@
+*.code-workspace
+*secrets.json
+*.pyc
+.vscode/*
+templates/.old/
+*.bak
+*.db
