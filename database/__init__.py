@@ -4,7 +4,7 @@ import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__ + "/../"))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(os.path.dirname( __file__ )))
 SECRETS_URL = os.path.join(PROJECT_ROOT, 'secrets.json')
 DB_CONNECTION_STR =  (
         json.loads(
