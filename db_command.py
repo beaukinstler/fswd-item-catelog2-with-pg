@@ -3,30 +3,32 @@ This file stores the command database functions
 to access the database with the app.
 This is where most of the CRUD logic happens.
 """
-import os
+# import os
 from sqlalchemy import exc, desc
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+# from sqlalchemy import create_engine
+# from sqlalchemy.orm import sessionmaker
 import random
 import string
 from db_setup import BASE, Item, Category, User
-import json
-PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
-SECRETS_URL = os.path.join(PROJECT_ROOT, 'secrets.json')
+# import json
+# PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+# SECRETS_URL = os.path.join(PROJECT_ROOT, 'secrets.json')
 
-DB_CONNECTION_STR =  (
-        json.loads(
-            open(SECRETS_URL, 'r')
-            .read())['db_conn_str']
-    )
+# DB_CONNECTION_STR =  (
+#         json.loads(
+#             open(SECRETS_URL, 'r')
+#             .read())['db_conn_str']
+#     )
 
 #engine = create_engine('sqlite:///catalog.db')
 #engine = create_engine('postgresql+psycopg2://catalog:F0rW3b5!@localhost/catalog')
-engine = create_engine(DB_CONNECTION_STR)
+# engine = create_engine(DB_CONNECTION_STR)
 
-BASE.metadata.bind = engine
+# BASE.metadata.bind = engine
 
-DBSession = sessionmaker(bind=engine)
+# DBSession = sessionmaker(bind=engine)
+
+from database import DBSession
 
 ses = DBSession()
 
@@ -247,12 +249,12 @@ def update_item(cat_id, item_id, name, description, price):
     update_object(item)
 
 
-def get_all_categories():
-    """
-    Get all categories by name and id, order based on data table
-    Returns: An iterable list of category objects
-    """
-    return ses.query(Category)
+# def get_all_categories():
+#     """
+#     Get all categories by name and id, order based on data table
+#     Returns: An iterable list of category objects
+#     """
+#     return ses.query(Category)
 
 
 def get_user(username):

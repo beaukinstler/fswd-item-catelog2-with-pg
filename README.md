@@ -7,7 +7,7 @@
 This is a sample project for Udacity's "Programming Foundations" course, and the Full Stack Web Dev nano-degree.
 
 In this project, we've built upon the earlier project for a catalog app.  
-The intial project's intent was not to have an entirely production ready application, but to demonstrate some of the core concepts 
+The initial project's intent was not to have an entirely production ready application, but to demonstrate some of the core concepts 
 of authentication, access control, and CRUD operations on a database.
 
 This enhancement has changed the application to use PostgreSQL, running on a web server on the internet, secured in order
@@ -103,7 +103,7 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-agains
 
 3. SSH/User setup
 	- in `/etc/ssh/sshd.conf`
-		- diable password remote login
+		- disable password remote login
 		- disable root key based remote login
 		- change the listening port
 
@@ -111,7 +111,7 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-agains
 	- ufw allow
 		- 123/udp
 		- 80/tcp
-		- 22/tcp (not actaully 22)
+		- 22/tcp (not actually 22)
 
 		ubuntu@dev:~$ sudo ufw status numbered
 		Status: active

@@ -22,22 +22,23 @@ logging.debug('This message should go to the log file')
 logging.info('So should this')
 logging.warning('And this, too')
 
+from database import ENGINE, DBSession, PROJECT_ROOT, SECRETS_URL
 
 import os
-PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
-secrets_url = os.path.join(PROJECT_ROOT, 'secrets.json')
+# PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+# secrets_url = os.path.join(PROJECT_ROOT, 'secrets.json')
 
 
-DB_CONNECTION_STR =  (
-        json.loads(
-            open(secrets_url, 'r')
-            .read())['db_conn_str']
-    )
+# DB_CONNECTION_STR =  (
+#         json.loads(
+#             open(secrets_url, 'r')
+#             .read())['db_conn_str']
+#     )
 
 
 SUPER_SECRET_KEY = (
         json.loads(
-            open(secrets_url, 'r')
+            open(SECRETS_URL, 'r')
             .read())['super_secret_key']
     )
 
@@ -53,10 +54,9 @@ auth = HTTPBasicAuth()
 
 app = Flask(__name__)
 app.secret_key = SUPER_SECRET_KEY
-engine = create_engine('postgresql+psycopg2://catalog:F0rW3b5!@localhost/catalog')
-BASE.metadata.bind = engine
+# engine = create_engine('postgresql+psycopg2://catalog:F0rW3b5!@localhost/catalog')
+BASE.metadata.bind = ENGINE
 
-DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 """
