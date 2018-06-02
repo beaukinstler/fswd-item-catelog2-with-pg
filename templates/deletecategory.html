@@ -18,8 +18,7 @@
 <p>{{category.name}}</p>
 
 <input type='submit' name='delete' value='Delete'>
-<input type='submit' name='delete' value='Cancel'>
-
+<a href="{{url_for('categoryDash', cat_id=category.id)}}">Cancel</a>
 
 </form>
 
