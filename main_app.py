@@ -12,29 +12,10 @@ import requests
 from oauth2client.client import flow_from_clientsecrets
 from oauth2client.client import FlowExchangeError
 import httplib2
-
 from flask_httpauth import HTTPBasicAuth
 from flask import make_response
-
-# import logging
-# logging.basicConfig(filename='example.log',level=logging.DEBUG)
-# logging.debug('This message should go to the log file')
-# logging.info('So should this')
-# logging.warning('And this, too')
-
 from database import ENGINE, DBSession, PROJECT_ROOT, SECRETS_URL
-
 import os
-# PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
-# secrets_url = os.path.join(PROJECT_ROOT, 'secrets.json')
-
-
-# DB_CONNECTION_STR =  (
-#         json.loads(
-#             open(secrets_url, 'r')
-#             .read())['db_conn_str']
-#     )
-
 
 SUPER_SECRET_KEY = (
         json.loads(

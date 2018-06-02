@@ -95,11 +95,55 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-agains
 	- Primary change was the sites.
 		1. first disabled the default site
 		2. then crated a conf file in site-available for my site
+			* Key elements for WSGI
+				1. Choose the user and group for the daemon process.
+				2. The alias. So if going to the root or the URL, or /some_sub_dir,
+					the site knows where to find the app code.
+				3. Finally, in the `Directory` section, `WSGIScriptReloading On` was 
+					set so I my changes would auto load, instead of having to reload.	
 		3. then enabled that site.
-	- Here's view of the conf  
+	- Here's view of the conf
+
+			<VirtualHost *:80>
+					ServerName dev.beaukinstler.com
+					
+					DocumentRoot /var/www/fswd
+
+					Alias /robots.txt /var/www/fswd/robots.txt     
+					
+					<Directory /var/www/fswd>
+							Order allow,deny
+							Allow from all
+					</Directory>
+
+					WSGIDaemonProcess mycatalogapp user=catalog group=catalog threads=5
+					WSGIScriptAlias / /var/www/scripts/catalog/myapp.wsgi
+
+					<Directory /var/www/scripts/catalog>
+							WSGIProcessGroup mycatalogapp
+							WSGIApplicationGroup %{GLOBAL}
+							Order deny,allow
+							Allow from all
+							WSGIScriptReloading On
+					</Directory>
+			</VirtualHost>
+
 
 2. Database 
-	- 
+	- After installing the server, I created the `catalog` database, and `catalog` user.
+	- Initially, since the connection string uses the `catalog` user to authenticate,
+		I needed to allow the user to have access to create tables. So I started out granting ALL PRIVILEGES to the catalog user. 
+	- Using `sudo su postgres` to get access, i used this command
+		 	
+			psql -d catalog -c "GRANT ALL PRIVILEGES ON DATABASE catalog TO catalog;"
+	- To change the app from using SQLite to PostgreSQL, it had to chagne the SQLAlchemy
+		engine setup. I load my connection string from a json file, but essentially its this:
+
+			postgresql+psycopg2://catalog:<password>@localhost/<database_name>
+	- Finally, upon first attempt to use Google Auth, I found my database column in the user
+		table that hold the password hash was too small, and I had to change the size of the column.  I used this command.
+
+			psql -d catalog -c "ALTER TABLE user ALTER COLUMN password_hash varchar(255)" 
 
 3. SSH/User setup
 	- in `/etc/ssh/sshd.conf`
