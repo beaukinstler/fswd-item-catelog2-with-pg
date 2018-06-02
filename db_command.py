@@ -3,10 +3,7 @@ This file stores the command database functions
 to access the database with the app.
 This is where most of the CRUD logic happens.
 """
-# import os
 from sqlalchemy import exc, desc
-# from sqlalchemy import create_engine
-# from sqlalchemy.orm import sessionmaker
 import random
 import string
 from db_setup import BASE, Item, Category, User
@@ -229,14 +226,6 @@ def update_item(cat_id, item_id, name, description, price):
         item.cat_id = str(cat_id)
 
     update_object(item)
-
-
-# def get_all_categories():
-#     """
-#     Get all categories by name and id, order based on data table
-#     Returns: An iterable list of category objects
-#     """
-#     return ses.query(Category)
 
 
 def get_user(username):

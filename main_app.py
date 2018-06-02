@@ -29,13 +29,12 @@ GOOG_CLIENT_ID = (
             open(client_secrets_url, 'r')
             .read())['web']['client_id']
     )
-# logging.debug( 'client secret url' + str(client_secrets_url))
+
 auth = HTTPBasicAuth()
 
 
 app = Flask(__name__)
 app.secret_key = SUPER_SECRET_KEY
-# engine = create_engine('postgresql+psycopg2://catalog:F0rW3b5!@localhost/catalog')
 BASE.metadata.bind = ENGINE
 
 session = DBSession()
@@ -479,9 +478,6 @@ def categoryItems(cat_id):
 @app.route('/item/<int:item_id>/')
 def itemInfo(item_id):
     item = get_item(item_id)
-    # userLoggedIn = 0
-    # if 'username' in login_session:
-    #     userLoggedIn = 1
     return render_template('item.html',
                            item=item,
                            userLoggedIn=userLoggedIn())
@@ -826,6 +822,5 @@ def bad_state(request_token, session_token):
 
 
 if __name__ == '__main__':
-#    app.secret_key = SUPER_SECRET_KEY
     app.debug = True
     app.run(host='0.0.0.0', port=5000)

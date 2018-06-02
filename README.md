@@ -6,6 +6,11 @@
 
 This is a sample project for Udacity's "Programming Foundations" course, and the Full Stack Web Dev nano-degree.
 
+It can be found at:
+
+* 	http://dev.beaukinstler.com
+* 	http://52.5.160.211
+
 In this project, we've built upon the earlier project for a catalog app.  
 The initial project's intent was not to have an entirely production ready application, but to demonstrate some of the core concepts 
 of authentication, access control, and CRUD operations on a database.
@@ -92,8 +97,8 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-agains
 ### Summary of configurations.
 
 1. Apache2 site
-	- Primary change was the sites.
-		1. first disabled the default site
+	- Primary change was the adding a config to `sites-available`.
+		1. First disabled the default site
 		2. then crated a conf file in site-available for my site
 			* Key elements for WSGI
 				1. Choose the user and group for the daemon process.
@@ -136,7 +141,7 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-agains
 	- Using `sudo su postgres` to get access, i used this command
 		 	
 			psql -d catalog -c "GRANT ALL PRIVILEGES ON DATABASE catalog TO catalog;"
-	- To change the app from using SQLite to PostgreSQL, it had to chagne the SQLAlchemy
+	- To change the app from using SQLite to PostgreSQL, I needed to change the SQLAlchemy
 		engine setup. I load my connection string from a json file, but essentially its this:
 
 			postgresql+psycopg2://catalog:<password>@localhost/<database_name>
@@ -146,7 +151,7 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-agains
 			psql -d catalog -c "ALTER TABLE user ALTER COLUMN password_hash varchar(255)" 
 
 3. SSH/User setup
-	- in `/etc/ssh/sshd.conf`
+	- In `/etc/ssh/sshd.conf`
 		- disable password remote login
 		- disable root key based remote login
 		- change the listening port
@@ -157,16 +162,18 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-postgresql-agains
 		- 80/tcp
 		- 22/tcp (not actually 22)
 
+---
+
 		ubuntu@dev:~$ sudo ufw status numbered
 		Status: active
+		To                         Action      From
+		--                         ------      ----
+		[ 1] sshx/tcp                   ALLOW IN    Anywhere                  
+		[ 2] 80/tcp                     ALLOW IN    Anywhere                  
+		[ 3] 123/udp                    ALLOW IN    Anywhere                  
+		[ 4] sshx/tcp (v6)              ALLOW IN    Anywhere (v6)             
+		[ 5] 80/tcp (v6)                ALLOW IN    Anywhere (v6)             
+		[ 6] 123/udp (v6)               ALLOW IN    Anywhere (v6)
 
-			To                         Action      From
-			--                         ------      ----
-			[ 1] sshx/tcp                   ALLOW IN    Anywhere                  
-			[ 2] 80/tcp                     ALLOW IN    Anywhere                  
-			[ 3] 123/udp                    ALLOW IN    Anywhere                  
-			[ 4] sshx/tcp (v6)              ALLOW IN    Anywhere (v6)             
-			[ 5] 80/tcp (v6)                ALLOW IN    Anywhere (v6)             
-			[ 6] 123/udp (v6)               ALLOW IN    Anywhere (v6)
-
-
+5. Finally, changed file rights, to that the `catalog` user can't access .git dir in the
+	directory.
