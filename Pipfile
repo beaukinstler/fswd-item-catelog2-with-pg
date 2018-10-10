@@ -10,6 +10,10 @@ name = "pypi"
 flask = "*"
 sqlalchemy = "*"
 passlib = "*"
+requests = "*"
+"oauth2client" = "*"
+"httplib2" = "*"
+flask-httpauth = "*"
 
 [requires]
 python_version = "2.7"
