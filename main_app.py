@@ -29,7 +29,12 @@ GOOG_CLIENT_ID = (
             open(client_secrets_url, 'r')
             .read())['web']['client_id']
     )
-
+SCOPES = [
+    # 'https://www.googleapis.com/auth/gmail.readonly',
+    # 'https://www.googleapis.com/auth/userinfo.email',
+    'https://www.googleapis.com/auth/userinfo.profile'
+    # Add other requested scopes.
+]
 auth = HTTPBasicAuth()
 
 
@@ -123,7 +128,7 @@ def gconnect():
     code = request.data
 
     try:
-        oauth_flow = flow_from_clientsecrets(client_secrets_url, scope='')
+        oauth_flow = flow_from_clientsecrets(client_secrets_url, scope=''.join(SCOPES))
         oauth_flow.redirect_uri = 'postmessage'
         credentials = oauth_flow.step2_exchange(code)
     except FlowExchangeError:
@@ -181,14 +186,13 @@ def gconnect():
     answer = requests.get(userinfo_url, params=params)
 
     data = answer.json()
-    pdb.set_trace()
     username_from_goog = ""
     try:
         username_from_goog = data['name']
     except KeyError:
-        print('The key you asked for is not here status has been set to False')
+        print('The "name" key you asked for is not here')
     if username_from_goog == "":
-        username_from_goog = data['email'].split("@")[0]
+        username_from_goog = data['email']
     login_session['username'] = username_from_goog
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
