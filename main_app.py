@@ -64,7 +64,7 @@ Some routes use the `verify_password` from HTTPAuth to protect API routes
 navigating to /logout will clear the session and send 401 logout for HTTPAuth
 browser clearing
 """
-
+app.logger.info('Logging startup')
 
 @app.route('/login', methods=['GET', 'POST'])
 def showLogin():
@@ -114,6 +114,7 @@ def showLogin():
 @app.route('/gconnect', methods=['GET', 'POST'])
 def gconnect():
     # Validate state token
+    app.logger.info('gconnect startup')
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter.'), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -180,8 +181,15 @@ def gconnect():
     answer = requests.get(userinfo_url, params=params)
 
     data = answer.json()
-
-    login_session['username'] = data['name']
+    pdb.set_trace()
+    username_from_goog = ""
+    try:
+        username_from_goog = data['name']
+    except KeyError:
+        print('The key you asked for is not here status has been set to False')
+    if username_from_goog == "":
+        username_from_goog = data['email'].split("@")[0]
+    login_session['username'] = username_from_goog
     login_session['picture'] = data['picture']
     login_session['email'] = data['email']
     login_session['provider'] = 'google'

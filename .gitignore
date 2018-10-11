@@ -5,3 +5,5 @@
 templates/.old/
 *.bak
 *.db
+
+logs/
